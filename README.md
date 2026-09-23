@@ -1,8 +1,9 @@
-# Athlete — website
+# Athleta Games — website
 
-Marketing site for a sports community that runs large-scale events at stadiums and schools for students and athletes across Southeast Asia.
+Redesign of the Athleta Games site: school leagues, international training camps
+and elite coaching for young athletes across India and Southeast Asia.
 
-Built with Next.js (App Router), TypeScript and Tailwind CSS v4.
+Built with Next.js (App Router), TypeScript and Tailwind CSS v4. No UI library.
 
 ## Getting started
 
@@ -17,23 +18,47 @@ npm run lint
 
 ```
 reference/                 Screenshots of the current site (design reference, not shipped)
-public/images/             Static images
+public/images/             Photos, cropped from the reference screenshots for now
 src/
   app/
-    layout.tsx             Root layout: fonts, metadata, <html>/<body>
-    globals.css            Tailwind + design tokens (colours, fonts)
+    layout.tsx             Fonts (Archivo, Geist) and metadata
+    globals.css            Design tokens and utilities (shell, display, eyebrow, lanes)
     not-found.tsx          404 page
-    (site)/                Route group for public pages; shares header + footer
-      layout.tsx
-      page.tsx             /  (home)
-      events/page.tsx      /events
-      events/[slug]/       /events/:slug
-      about/ community/ partners/ contact/
+    (site)/                Public pages; share the header and footer
+      page.tsx             /
+      leagues/             /leagues and /leagues/:slug
+      camps/               /camps
+      team/                /team
+      nutrition/           /nutrition
+      about/               /about
+      contact/             /contact (form opens the visitor's email app)
   components/
-    layout/                Site-wide chrome: header, footer, page shell
-    sections/              Page sections (hero, etc.)
-  config/site.ts           Site name, nav links, regions
-  content/                 Typed placeholder content (events)
-  lib/utils.ts             Shared helpers
-  types/                   Shared TypeScript types
+    home/                  Home page sections
+    layout/                Header, mobile menu, footer, closing call to action
+    ui/                    Shared pieces: buttons, cards, page hero, photo grid + viewer
+  config/site.ts           Name, navigation, contact details, social links
+  content/                 All copy and data: leagues, camps, people, sports, partners
+  types/content.ts         Content types
 ```
+
+To change text, dates, leagues, camps or people, edit the files in `src/content/`.
+
+## Design tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `ink` | `#0a0d1f` | Dark sections, primary text |
+| `paper` | `#f4f3ee` | Light sections |
+| `volt` | `#b9f23f` | Accent: CTAs and highlights only |
+| `indigo` | `#3a3fb0` | Secondary accent, from the logo |
+
+Type: Archivo (condensed, uppercase) for display; Geist for body; Geist Mono for labels.
+
+## Before launch
+
+- Replace photos in `public/images/` with the original high-resolution files
+  (current ones are cropped from screenshots).
+- Add the official logo as an SVG (`src/components/ui/logo.tsx` is a placeholder wordmark).
+- Real social profile URLs in `src/config/site.ts`.
+- A form backend for `/contact`.
+- Team member roles in `src/content/people.ts`.

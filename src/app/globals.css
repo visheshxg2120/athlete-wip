@@ -1,37 +1,94 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — placeholder values until the reference screenshots are in.
- * Dark-first "night stadium" palette with a single electric accent.
+ * Design tokens
+ * From the Athleta logo: deep indigo "ink" and the runner's green, pushed
+ * brighter into a "volt" accent. Warm paper for light sections.
+ * Volt is for energy moments only — CTAs, highlights, active states.
  */
 :root {
-  --background: #0e0f12;
-  --foreground: #f3f2ee;
-  --muted: #1a1c21;
-  --muted-foreground: #9a9ca3;
-  --border: rgb(255 255 255 / 0.1);
-  --accent: #d4ff3a;
-  --accent-foreground: #0e0f12;
+  --ink: #0a0d1f;
+  --ink-2: #121733;
+  --ink-3: #1c2247;
+  --paper: #f4f3ee;
+  --surface: #ffffff;
+  --line: rgb(10 13 31 / 0.1);
+  --line-inverse: rgb(255 255 255 / 0.12);
+  --muted: #5a5f73;
+  --muted-inverse: #a4a8bb;
+  --volt: #b9f23f;
+  --indigo: #3a3fb0;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-inverse: var(--line-inverse);
   --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-muted-inverse: var(--muted-inverse);
+  --color-volt: var(--volt);
+  --color-indigo: var(--indigo);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-archivo);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-line;
+  }
+  html {
+    @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
   }
+  ::selection {
+    @apply bg-volt text-ink;
+  }
+}
+
+/* Page-width wrapper with responsive side gutters. */
+@utility shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Condensed, uppercase display type: the athletic voice of the brand. */
+@utility display {
+  font-family: var(--font-display);
+  font-stretch: 70%;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+/* Small uppercase label above headings. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Faint running-track lanes behind dark sections. */
+@utility lanes {
+  background-image: repeating-linear-gradient(
+    112deg,
+    transparent 0 64px,
+    rgb(255 255 255 / 0.035) 64px 65px
+  );
 }
