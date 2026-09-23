@@ -9,6 +9,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { PhotoGrid } from "@/components/ui/photo-grid";
 import { getLeague, leagues } from "@/content/leagues";
 import { leagueDates } from "@/lib/league-status";
+import { editionForLeague } from "@/lib/results";
 
 export function generateStaticParams() {
   return leagues.map((league) => ({ slug: league.slug }));
@@ -26,6 +27,7 @@ export default async function LeaguePage(props: PageProps<"/leagues/[slug]">) {
   if (!league) notFound();
 
   const dates = leagueDates(league);
+  const results = editionForLeague(league.slug);
   const others = leagues.filter((l) => l.slug !== league.slug).slice(0, 3);
 
   return (
@@ -48,7 +50,7 @@ export default async function LeaguePage(props: PageProps<"/leagues/[slug]">) {
             </span>
           ) : null}
         </div>
-        <LeagueStatusPanel league={league} />
+        <LeagueStatusPanel league={league} resultsHref={results ? `/results/${results.slug}` : undefined} />
       </PageHero>
 
       <section className="py-20 md:py-28">

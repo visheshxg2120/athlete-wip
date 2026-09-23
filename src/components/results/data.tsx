@@ -1,0 +1,90 @@
+import Link from "next/link";
+
+import { getAthlete, getSchool, type Medal } from "@/lib/results";
+import { cn } from "@/lib/utils";
+
+// Small building blocks shared by the results pages.
+
+export function StatTile({ label, value, sub }: { label: string; value: React.ReactNode; sub?: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border bg-surface p-5">
+      <p className="text-sm text-muted">{label}</p>
+      <p className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">{value}</p>
+      {sub ? <p className="mt-1 text-sm text-muted">{sub}</p> : null}
+    </div>
+  );
+}
+
+/** `compact` drops the minimum width so short tables fit a phone without scrolling. */
+export function TableCard({ children, className, compact }: { children: React.ReactNode; className?: string; compact?: boolean }) {
+  return (
+    <div className={cn("overflow-x-auto rounded-2xl border bg-surface", className)}>
+      <table className={cn("w-full border-collapse text-left text-sm [&_tbody_tr:last-child_td]:border-0", !compact && "min-w-[32rem]")}>{children}</table>
+    </div>
+  );
+}
+
+export function Th({ children, className, numeric }: { children?: React.ReactNode; className?: string; numeric?: boolean }) {
+  return (
+    <th scope="col" className={cn("eyebrow border-b px-3 py-3 font-normal text-muted sm:px-4", numeric && "text-right", className)}>
+      {children}
+    </th>
+  );
+}
+
+export function Td({ children, className, numeric }: { children?: React.ReactNode; className?: string; numeric?: boolean }) {
+  return <td className={cn("border-b px-3 py-3 sm:px-4", numeric && "text-right tabular-nums", className)}>{children}</td>;
+}
+
+export function AthleteLink({ id, showSchool = true }: { id: string; showSchool?: boolean }) {
+  const a = getAthlete(id);
+  if (!a) return <span>Unknown</span>;
+  return (
+    <span className="flex flex-col">
+      <Link href={`/results/athletes/${a.id}`} className="font-medium hover:text-indigo hover:underline">
+        {a.name}
+      </Link>
+      {showSchool ? <span className="text-xs text-muted">{getSchool(a.schoolId).name}</span> : null}
+    </span>
+  );
+}
+
+const MEDAL_STYLE: Record<Medal, string> = {
+  gold: "bg-[#E6B422]",
+  silver: "bg-[#A9AEB9]",
+  bronze: "bg-[#B8743A]",
+};
+
+/** Medal marker: coloured dot plus the word, so it never relies on colour alone. */
+export function MedalBadge({ medal }: { medal?: Medal }) {
+  if (!medal) return null;
+  return (
+    <span className="inline-flex items-center gap-1.5 text-xs font-medium capitalize text-ink">
+      <span className={cn("size-2.5 rounded-full", MEDAL_STYLE[medal])} aria-hidden />
+      {medal}
+    </span>
+  );
+}
+
+export function Place({ place }: { place: number }) {
+  return (
+    <span className={cn("inline-grid size-7 place-items-center rounded-full text-xs font-semibold tabular-nums", place <= 3 ? "bg-ink text-white" : "bg-ink/5 text-ink")}>
+      {place}
+    </span>
+  );
+}
+
+export function Pill({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "volt" | "indigo" }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+        tone === "neutral" && "bg-ink/5 text-ink",
+        tone === "volt" && "bg-volt text-ink",
+        tone === "indigo" && "bg-indigo/10 text-indigo",
+      )}
+    >
+      {children}
+    </span>
+  );
+}

@@ -8,6 +8,7 @@ export const siteConfig = {
   founded: 2017,
   nav: [
     { label: "Leagues", href: "/leagues" },
+    { label: "Results", href: "/results" },
     { label: "Camps", href: "/camps" },
     { label: "Team", href: "/team" },
     { label: "Nutrition", href: "/nutrition" },

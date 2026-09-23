@@ -50,6 +50,30 @@ src/
 
 To change text, dates, leagues, camps or people, edit the files in `src/content/`.
 
+## Results dashboard (`/results`)
+
+League results, leaderboards and athlete profiles, similar to HYROX's results site.
+
+| Route | What it shows |
+|---|---|
+| `/results` | Totals, athlete search, every league edition, standout performances, school medal table |
+| `/results/[edition]` | Football: group tables, top scorers, goals chart, all results · Cricket: points table, batting/bowling leaders · Athletics: event results by category, medal table · Gymnastics: all-around rankings |
+| `/results/athletes` | Searchable athlete directory (filter by sport and school) |
+| `/results/athletes/[id]` | An athlete's history across every league they've played |
+
+**Data.** Everything is read from one JSON file, `src/data/results/sample.json`, typed by
+`ResultsData` in `src/types/results.ts`. Standings, leaderboards, medal tables and
+athlete histories are all derived in `src/lib/results.ts`, so the file only holds raw
+results (matches and goals, innings and performances, marks, apparatus scores).
+
+The current file is **generated demo data** (`node scripts/generate-sample-results.mjs`);
+the pages show a "Sample data" notice while `sample` is `true`. To go live, replace it
+with real results in the same shape and set `"sample": false`.
+
+**Privacy.** Most athletes are minors. The data holds only a display name (first name +
+surname initial), school and results: no full names, photos or dates of birth.
+Collect parental consent before publishing real results.
+
 ## Design tokens
 
 | Token | Value | Use |
