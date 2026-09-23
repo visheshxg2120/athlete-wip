@@ -23,6 +23,9 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <ButtonLink href="/results" variant="outline" className="hidden h-10 px-5 sm:inline-flex">
+            Results
+          </ButtonLink>
           <ButtonLink href={siteConfig.cta.href} className="hidden h-10 px-5 sm:inline-flex">
             {siteConfig.cta.label}
           </ButtonLink>
