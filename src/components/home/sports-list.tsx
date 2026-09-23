@@ -64,7 +64,7 @@ export function SportsList({ sports }: { sports: Sport[] }) {
                 </span>
                 <ArrowUpRight
                   className={cn(
-                    "ml-auto hidden size-4 shrink-0 self-center text-indigo opacity-0 transition-opacity duration-300 pointer-fine:block",
+                    "ml-auto hidden size-4 shrink-0 self-center text-indigo opacity-0 transition-opacity duration-300 sm:pointer-fine:block",
                     active === i && "opacity-100",
                   )}
                 />

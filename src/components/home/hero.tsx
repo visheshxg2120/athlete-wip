@@ -15,20 +15,22 @@ const stats = [
 
 export function Hero() {
   return (
-    <section className="lanes relative overflow-hidden bg-ink text-white">
+    // On desktop the hero fills exactly one screen, stats row included, and the
+    // headline scales with both width and height so nothing drops below the fold.
+    <section className="lanes relative flex flex-col overflow-hidden bg-ink text-white lg:min-h-svh">
       <div className="pointer-events-none absolute -left-48 top-1/3 size-[40rem] rounded-full bg-indigo/40 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 -top-24 size-[28rem] rounded-full bg-volt/10 blur-3xl" />
 
-      <div className="shell relative grid gap-14 pb-16 pt-32 md:pt-40 lg:grid-cols-12 lg:gap-10 lg:pb-24">
+      <div className="shell relative grid flex-1 items-center gap-12 pb-14 pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-8 lg:pt-24">
         <div className="lg:col-span-7">
           <p className="eyebrow text-volt">India · Southeast Asia · Since {siteConfig.founded}</p>
-          <h1 className="display mt-6 text-7xl sm:text-8xl xl:text-[9.5rem]">
+          <h1 className="display mt-5 text-[length:clamp(3.25rem,14vw,5.5rem)] lg:whitespace-nowrap lg:text-[length:min(6.9vw,11.5svh,5.75rem)]">
             Play local.
             <br />
             Compete <span className="text-volt">global.</span>
           </h1>
-          <p className="mt-8 max-w-xl text-lg text-muted-inverse md:text-xl">{siteConfig.description}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <p className="mt-6 max-w-lg text-lg text-muted-inverse">{siteConfig.description}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/leagues">
               Explore leagues
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -40,12 +42,10 @@ export function Hero() {
         </div>
 
         <div className="relative lg:col-span-5">
-          <div className="grid grid-cols-2 gap-3">
-            <HeroPhoto src="/images/leagues/football-page-4.jpg" alt="Young footballers in a huddle" className="aspect-[3/4]" />
-            <div className="grid gap-3">
-              <HeroPhoto src="/images/gallery/11.jpg" alt="Squad at an Asia-Pacific tournament" className="aspect-square" />
-              <HeroPhoto src="/images/leagues/gymnastics-1.jpg" alt="Gymnast on the floor" className="aspect-square" />
-            </div>
+          <div className="grid h-80 grid-cols-2 grid-rows-2 gap-3 lg:h-[clamp(16rem,44svh,28rem)]">
+            <HeroPhoto src="/images/leagues/football-page-4.jpg" alt="Young footballers in a huddle" className="row-span-2" />
+            <HeroPhoto src="/images/gallery/11.jpg" alt="Squad at an Asia-Pacific tournament" />
+            <HeroPhoto src="/images/leagues/gymnastics-1.jpg" alt="Gymnast on the floor" />
           </div>
 
           <FeaturedLeague leagues={leagues} />
@@ -55,10 +55,10 @@ export function Hero() {
       <div className="relative border-t border-line-inverse">
         <dl className="shell grid grid-cols-2 md:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="border-line-inverse py-8 odd:pr-4 md:border-l md:px-6 md:first:border-l-0 md:first:pl-0">
+            <div key={s.label} className="border-line-inverse py-5 odd:pr-4 md:border-l md:px-6 md:first:border-l-0 md:first:pl-0">
               <dt className="sr-only">{s.label}</dt>
               <dd>
-                <span className="display block text-5xl md:text-6xl">{s.value}</span>
+                <span className="display block text-4xl md:text-5xl">{s.value}</span>
                 <span className="mt-2 block text-sm text-muted-inverse">{s.label}</span>
               </dd>
             </div>
