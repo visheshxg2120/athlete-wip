@@ -52,27 +52,37 @@ To change text, dates, leagues, camps or people, edit the files in `src/content/
 
 ## Results dashboard (`/results`)
 
-League results, leaderboards and athlete profiles, similar to HYROX's results site.
+League results, rankings and athlete profiles, laid out like HYROX's results site
+(hyresult.com): a sidebar (Leagues / Rankings / Analysis), global search (⌘K or `/`)
+and breadcrumbs on every page.
 
 | Route | What it shows |
 |---|---|
-| `/results` | Totals, athlete search, every league edition, standout performances, school medal table |
-| `/results/[edition]` | Football: group tables, top scorers, goals chart, all results · Cricket: points table, batting/bowling leaders · Athletics: event results by category, medal table · Gymnastics: all-around rankings |
-| `/results/athletes` | Searchable athlete directory (filter by sport and school) |
-| `/results/athletes/[id]` | An athlete's history across every league they've played |
+| `/results` | League calendar: live, upcoming and past leagues as cards, filter by season and sport |
+| `/results/[edition]` | One league season: standings, leaderboards, all results; switch between seasons |
+| `/results/athletes` | Athlete rankings: search, sport/gender/school filters, seasons played, podiums, pagination |
+| `/results/schools` | Schools ranked by titles and medals |
+| `/results/records` | Best marks and scores ever, and biggest single-league performances |
+| `/results/athletes/[id]` | Profile: summary chips, then Results (by league) / Personal bests / Teammates / Venues |
+| `/results/athletes/[id]/[edition]` | One athlete in one league: where they sit in the field, per-event and per-apparatus analysis, match-by-match charts |
 
 **Data.** Everything is read from one JSON file, `src/data/results/sample.json`, typed by
-`ResultsData` in `src/types/results.ts`. Standings, leaderboards, medal tables and
-athlete histories are all derived in `src/lib/results.ts`, so the file only holds raw
-results (matches and goals, innings and performances, marks, apparatus scores).
+`ResultsData` in `src/types/results.ts`. Standings, rankings, records and athlete
+histories are all derived in `src/lib/results.ts`, so the file only holds raw results
+(matches and goals, innings and performances, marks, apparatus scores), plus
+`fixtures` for scheduled leagues that have no results yet.
 
-The current file is **generated demo data** (`node scripts/generate-sample-results.mjs`);
-the pages show a "Sample data" notice while `sample` is `true`. To go live, replace it
-with real results in the same shape and set `"sample": false`.
+The current file is **generated demo data** (`node scripts/generate-sample-results.mjs`):
+three seasons (2024–2026), eight leagues, 370 athletes. The pages show a "Sample data"
+notice while `sample` is `true`. To go live, replace it with real results in the same
+shape and set `"sample": false`.
 
 **Privacy.** Most athletes are minors. The data holds only a display name (first name +
-surname initial), school and results: no full names, photos or dates of birth.
-Collect parental consent before publishing real results.
+surname initial), school and results: no full names, photos or dates of birth. Every
+athlete appears in league tables and the rankings list, but only athletes with
+`"profile": true` (parents opted in) get a profile and analysis pages; everyone else's
+name is plain text. Profiles show initials instead of photos and aren't indexed by
+search engines. Collect parental consent before publishing real results.
 
 ## Design tokens
 

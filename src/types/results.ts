@@ -17,6 +17,8 @@ export type Athlete = {
   name: string;
   sex: Sex;
   schoolId: string;
+  /** Public profile page. Only for athletes whose parents have opted in. */
+  profile?: boolean;
 };
 
 type EditionBase = {
@@ -27,6 +29,9 @@ type EditionBase = {
   name: string;
   sport: string;
   season: string;
+  /** ISO "YYYY-MM-DD", India time. */
+  startsOn: string;
+  endsOn: string;
   venue: string;
   /** Categories contested, e.g. "U-10" or "U-12 Girls". */
   categories: string[];
@@ -115,10 +120,24 @@ export type GymnasticsEdition = EditionBase & {
 
 export type Edition = FootballEdition | CricketEdition | TrackEdition | GymnasticsEdition;
 
+/** A scheduled league with no results yet; shown on the calendar. */
+export type Fixture = {
+  slug: string;
+  leagueSlug?: string;
+  name: string;
+  sport: string;
+  season: string;
+  startsOn: string;
+  endsOn: string;
+  registrationCloses?: string;
+  venue: string;
+};
+
 export type ResultsData = {
   /** True while the site shows generated demo data. */
   sample: boolean;
   schools: School[];
   athletes: Athlete[];
   editions: Edition[];
+  fixtures: Fixture[];
 };

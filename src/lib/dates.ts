@@ -38,3 +38,15 @@ export function formatRange(start: string, end = start) {
   if (a.month !== b.month) return `${a.day} ${a.short} – ${b.day} ${b.short} ${b.year}`;
   return `${a.day}–${b.day} ${b.month} ${b.year}`;
 }
+
+/** "in 3 days", "yesterday", "10 months ago": `iso` relative to `today`. */
+export function relativeTo(iso: string, today: string) {
+  const d = daysBetween(today, iso);
+  if (d === 0) return "today";
+  if (d === 1) return "tomorrow";
+  if (d === -1) return "yesterday";
+  const n = Math.abs(d);
+  const [v, unit] = n < 45 ? [n, "day"] : n < 335 ? [Math.round(n / 30.4), "month"] : [Math.round(n / 365), "year"];
+  const text = `${v} ${unit}${v === 1 ? "" : "s"}`;
+  return d > 0 ? `in ${text}` : `${text} ago`;
+}

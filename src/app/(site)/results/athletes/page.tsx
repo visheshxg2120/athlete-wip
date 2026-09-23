@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { AthleteSearch } from "@/components/results/athlete-search";
-import { ResultsShell } from "@/components/results/results-shell";
-import { athleteIndex } from "@/lib/results";
+import { PageHead } from "@/components/results/page-head";
+import { RankingsList } from "@/components/results/rankings-list";
+import { athleteRankings, SEASONS } from "@/lib/results";
 
 export const metadata: Metadata = {
-  title: "Athletes",
-  description: "Search every athlete who has competed in an Athleta league.",
+  title: "Athlete rankings",
+  description: "Every athlete who has competed in an Athleta league, ranked by podium finishes.",
 };
 
 export default function AthletesPage() {
   return (
-    <ResultsShell
-      eyebrow="Results · Athletes"
-      title="Athlete directory"
-      intro="Every athlete who has competed in an Athleta league. Names are shown as first name and surname initial."
-      active="Athletes"
-    >
-      <div className="shell">
-        <AthleteSearch athletes={athleteIndex()} />
+    <>
+      <PageHead
+        crumbs={[{ label: "Results", href: "/results" }, { label: "Rankings" }, { label: "Athletes" }]}
+        title="Athletes"
+        description="Everyone who has competed in an Athleta league, ranked by podium finishes (team and individual), then leagues played. Names show a first name and surname initial only; full profiles are shown only for athletes whose parents have opted in."
+      />
+      <div className="mt-8">
+        <Suspense>
+          <RankingsList rows={athleteRankings()} seasons={SEASONS} />
+        </Suspense>
       </div>
-    </ResultsShell>
+    </>
   );
 }

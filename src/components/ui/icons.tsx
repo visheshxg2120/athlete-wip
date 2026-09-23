@@ -76,3 +76,35 @@ export const Calendar = (p: IconProps) => (
     <path d="M3 10h18M8 3v4M16 3v4" />
   </svg>
 );
+
+export const Search = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);
+
+export const Trophy = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8M9 17h6" />
+  </svg>
+);
+
+export const Users = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="9" cy="8" r="3.5" />
+    <path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6" />
+  </svg>
+);
+
+export const School = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-5h4v5" />
+  </svg>
+);
+
+export const Chart = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+  </svg>
+);

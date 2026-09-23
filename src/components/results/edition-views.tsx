@@ -1,6 +1,6 @@
 import { BarChart } from "@/components/results/bar-chart";
 import { AthleteLink, MedalBadge, Place, StatTile, TableCard, Td, Th } from "@/components/results/data";
-import { Section } from "@/components/results/results-shell";
+import { Section } from "@/components/results/page-head";
 import { Tabs } from "@/components/results/tabs";
 import {
   battingLeaders,
@@ -58,12 +58,12 @@ export function FootballView({ e }: { e: FootballEdition }) {
 
   return (
     <>
-      <div className="shell grid grid-cols-2 gap-3 md:grid-cols-4">
-        <StatTile label="Champions" value={<span className="text-2xl md:text-3xl">{teamById(e, byPlace(1)!).name}</span>} sub={`Beat ${teamById(e, byPlace(2)!).name} ${final.homeGoals}–${final.awayGoals}${final.penalties ? " on penalties" : ""}`} />
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+        <StatTile label="Champions" value={<span className="text-xl md:text-2xl">{teamById(e, byPlace(1)!).name}</span>} sub={`Beat ${teamById(e, byPlace(2)!).name} ${final.homeGoals}–${final.awayGoals}${final.penalties ? " on penalties" : ""}`} />
         {topTie.count > 1 ? (
           <StatTile label="Top scorers" value={`${topTie.value} goals`} sub={`Shared by ${topTie.count} players`} />
         ) : (
-          <StatTile label="Top scorer" value={<span className="text-2xl md:text-3xl">{getAthlete(scorers[0].athleteId)?.name}</span>} sub={`${scorers[0].goals} goals · ${teamById(e, scorers[0].teamId).name}`} />
+          <StatTile label="Top scorer" value={<span className="text-xl md:text-2xl">{getAthlete(scorers[0].athleteId)?.name}</span>} sub={`${scorers[0].goals} goals · ${teamById(e, scorers[0].teamId).name}`} />
         )}
         <StatTile label="Matches" value={e.matches.length} sub={`${e.teams.length} teams · ${e.categories.join(", ")}`} />
         <StatTile label="Goals" value={totalGoals} sub={`${(totalGoals / e.matches.length).toFixed(1)} per match`} />
@@ -173,10 +173,10 @@ export function CricketView({ e }: { e: CricketEdition }) {
   const final = e.matches.find((m) => m.stage === "Final")!;
   return (
     <>
-      <div className="shell grid grid-cols-2 gap-3 md:grid-cols-4">
-        <StatTile label="Champions" value={<span className="text-2xl md:text-3xl">{teamById(e, champ).name}</span>} sub="Won the final" />
-        <StatTile label="Most runs" value={<span className="text-2xl md:text-3xl">{getAthlete(bat[0].athleteId)?.name}</span>} sub={`${bat[0].runs} runs · best ${bat[0].best}`} />
-        <StatTile label="Most wickets" value={<span className="text-2xl md:text-3xl">{getAthlete(bowl[0].athleteId)?.name}</span>} sub={`${bowl[0].wickets} wickets`} />
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+        <StatTile label="Champions" value={<span className="text-xl md:text-2xl">{teamById(e, champ).name}</span>} sub="Won the final" />
+        <StatTile label="Most runs" value={<span className="text-xl md:text-2xl">{getAthlete(bat[0].athleteId)?.name}</span>} sub={`${bat[0].runs} runs · best ${bat[0].best}`} />
+        <StatTile label="Most wickets" value={<span className="text-xl md:text-2xl">{getAthlete(bowl[0].athleteId)?.name}</span>} sub={`${bowl[0].wickets} wickets`} />
         <StatTile label="Matches" value={e.matches.length} sub={`${e.oversPerSide} overs a side`} />
       </div>
 
@@ -268,10 +268,10 @@ export function TrackView({ e }: { e: TrackEdition }) {
   const entrants = new Set(e.events.flatMap((ev) => ev.results.map((r) => r.athleteId))).size;
   return (
     <>
-      <div className="shell grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         <StatTile label="Athletes" value={entrants} sub={`${e.categories.length} categories`} />
         <StatTile label="Events" value={e.events.length} sub={[...new Set(e.events.map((ev) => ev.name))].join(", ")} />
-        <StatTile label="Top school" value={<span className="text-2xl md:text-3xl">{getSchool(medalTable([e])[0].schoolId).name}</span>} sub={`${medalTable([e])[0].gold} golds`} />
+        <StatTile label="Top school" value={<span className="text-xl md:text-2xl">{getSchool(medalTable([e])[0].schoolId).name}</span>} sub={`${medalTable([e])[0].gold} golds`} />
         <StatTile label="Results" value={e.events.reduce((n, ev) => n + ev.results.length, 0)} sub="Times and distances" />
       </div>
 
@@ -313,10 +313,10 @@ export function TrackView({ e }: { e: TrackEdition }) {
 export function GymnasticsView({ e }: { e: GymnasticsEdition }) {
   return (
     <>
-      <div className="shell grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         {e.categories.map((cat) => {
           const top = gymRanking(e, cat)[0];
-          return <StatTile key={cat} label={`${cat} champion`} value={<span className="text-2xl md:text-3xl">{getAthlete(top.athleteId)?.name}</span>} sub={`${top.total.toFixed(3)} pts all-around`} />;
+          return <StatTile key={cat} label={`${cat} champion`} value={<span className="text-xl md:text-2xl">{getAthlete(top.athleteId)?.name}</span>} sub={`${top.total.toFixed(3)} pts all-around`} />;
         })}
         <StatTile label="Gymnasts" value={e.scores.length} sub={`${e.categories.length} categories`} />
         <StatTile label="Routines scored" value={e.scores.reduce((n, s) => n + Object.keys(s.byApparatus).length, 0)} />

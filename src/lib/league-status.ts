@@ -7,15 +7,18 @@ export type LeagueStatus =
   | { kind: "upcoming"; label: string; note: string }
   | { kind: "completed"; label: string; note?: string };
 
+/** The fields status needs; results fixtures and editions share them. */
+export type Dated = Pick<League, "startsOn" | "endsOn" | "registrationCloses" | "season">;
+
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
 /** Human-readable dates: "19–20 September 2026", "2025 season" or undefined. */
-export function leagueDates(league: League) {
+export function leagueDates(league: Dated) {
   if (league.startsOn) return formatRange(league.startsOn, league.endsOn);
   return league.season ? `${league.season} season` : undefined;
 }
 
-export function getLeagueStatus(league: League, today: string): LeagueStatus {
+export function getLeagueStatus(league: Dated, today: string): LeagueStatus {
   const { startsOn, registrationCloses } = league;
   // Leagues without dates are past events carried over from the old site.
   if (!startsOn) return { kind: "completed", label: "Completed", note: leagueDates(league) };
