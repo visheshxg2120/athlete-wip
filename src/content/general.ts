@@ -1,14 +1,48 @@
 import type { Photo } from "@/types/content";
 
-export const sports = [
-  "Football",
-  "Basketball",
-  "Swimming",
-  "Cricket",
-  "Tennis",
-  "Pickleball",
-  "Baseball",
-  "Triathlon",
+export type Sport = {
+  name: string;
+  /** One line on what Athleta runs in this sport. */
+  detail: string;
+  href: string;
+  /** Shown on hover. Sports without a photo get a graphic card instead. */
+  photo?: Photo;
+};
+
+export const sports: Sport[] = [
+  {
+    name: "Football",
+    detail: "U-10 & U-13 leagues · Spanish camp",
+    href: "/leagues/burgeoning-football-league",
+    photo: { src: "/images/leagues/football-page-2.jpg", alt: "Young footballers on the ball" },
+  },
+  {
+    name: "Basketball",
+    detail: "Phuket camp · FIBA-certified coach",
+    href: "/camps",
+    photo: { src: "/images/camps/basketball.jpg", alt: "Young basketball players dribbling" },
+  },
+  {
+    name: "Swimming",
+    detail: "Phuket & Chonburi · Olympic coach",
+    href: "/camps",
+    photo: { src: "/images/camps/swimming.jpg", alt: "Swimmer doing freestyle" },
+  },
+  {
+    name: "Cricket",
+    detail: "U12 league for winter mornings",
+    href: "/leagues/u12-cricket-league",
+    photo: { src: "/images/leagues/cricket-3.jpg", alt: "Young cricketer batting" },
+  },
+  { name: "Tennis", detail: "Coaching & competition", href: "/contact" },
+  { name: "Pickleball", detail: "Coaching & competition", href: "/contact" },
+  {
+    name: "Baseball",
+    detail: "Asia-Pacific tournament, Korea 2017",
+    href: "/contact",
+    photo: { src: "/images/gallery/11.jpg", alt: "Squad at a 2017 Asia-Pacific tournament in Korea" },
+  },
+  { name: "Triathlon", detail: "Coaching & competition", href: "/contact" },
 ];
 
 export const partners = [

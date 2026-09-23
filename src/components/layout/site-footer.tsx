@@ -50,7 +50,11 @@ export function SiteFooter() {
 
         <FooterColumn title="Sports" className="md:col-span-2">
           {sports.slice(0, 6).map((sport) => (
-            <li key={sport}>{sport}</li>
+            <li key={sport.name}>
+              <Link href={sport.href} className="hover:text-volt">
+                {sport.name}
+              </Link>
+            </li>
           ))}
         </FooterColumn>
 
