@@ -2,10 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ArrowUpRight } from "@/components/ui/icons";
+import { LeagueStatusBadge } from "@/components/ui/league-status-badge";
+import { leagueDates } from "@/lib/league-status";
 import { cn } from "@/lib/utils";
 import type { League } from "@/types/content";
 
-export function LeagueCard({ league, className }: { league: League; className?: string }) {
+export function LeagueCard({
+  league,
+  className,
+  showStatus = true,
+}: {
+  league: League;
+  className?: string;
+  /** Hide the status pill where the surrounding heading already says it. */
+  showStatus?: boolean;
+}) {
+  const dates = leagueDates(league);
+
   return (
     <Link
       href={`/leagues/${league.slug}`}
@@ -22,6 +35,7 @@ export function LeagueCard({ league, className }: { league: League; className?: 
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+      {showStatus ? <LeagueStatusBadge league={league} className="absolute left-5 top-5" /> : null}
       <span className="absolute right-5 top-5 grid size-10 place-items-center rounded-full bg-white/10 backdrop-blur transition-colors group-hover:bg-volt group-hover:text-ink">
         <ArrowUpRight className="size-4" />
       </span>
@@ -30,6 +44,7 @@ export function LeagueCard({ league, className }: { league: League; className?: 
           {league.sport} · {league.location}
         </p>
         <h3 className="display mt-3 text-3xl md:text-4xl">{league.shortName}</h3>
+        {dates ? <p className="mt-3 text-sm text-white/70">{dates}</p> : null}
       </div>
     </Link>
   );

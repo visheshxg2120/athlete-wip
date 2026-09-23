@@ -1,12 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { FeaturedLeague } from "@/components/home/featured-league";
 import { ButtonLink } from "@/components/ui/button-link";
-import { ArrowRight, ArrowUpRight, Calendar, Pin } from "@/components/ui/icons";
+import { ArrowRight } from "@/components/ui/icons";
 import { siteConfig } from "@/config/site";
-import { isUpcoming, leagues } from "@/content/leagues";
-
-const featured = leagues[0];
+import { leagues } from "@/content/leagues";
 
 const stats = [
   { value: "2017", label: "Founded in New Delhi" },
@@ -50,28 +48,7 @@ export function Hero() {
             </div>
           </div>
 
-          <Link
-            href={`/leagues/${featured.slug}`}
-            className="group relative -mt-16 ml-auto block w-[88%] rounded-2xl border border-line-inverse bg-ink-2/90 p-5 backdrop-blur-md transition-colors hover:border-volt/60"
-          >
-            <div className="flex items-center justify-between">
-              <span className="eyebrow rounded-full bg-volt px-2.5 py-1 text-ink">
-                {isUpcoming(featured) ? "Up next" : "Latest league"}
-              </span>
-              <ArrowUpRight className="size-5 text-white/60 transition-colors group-hover:text-volt" />
-            </div>
-            <p className="display mt-4 text-3xl">{featured.shortName}</p>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-inverse">
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="size-4" />
-                {featured.when}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Pin className="size-4" />
-                {featured.location}
-              </span>
-            </div>
-          </Link>
+          <FeaturedLeague leagues={leagues} />
         </div>
       </div>
 

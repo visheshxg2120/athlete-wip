@@ -10,10 +10,14 @@ export type League = {
   shortName: string;
   sport: string;
   location: string;
-  /** Human-readable date or season, if known. */
-  when?: string;
-  /** ISO date of the last day, used to label upcoming vs. past. */
+  // Dates are ISO "YYYY-MM-DD" in India time; they drive the league's status
+  // (registration open / upcoming / happening now / completed).
+  startsOn?: string;
+  /** Defaults to startsOn for one-day events. */
   endsOn?: string;
+  registrationCloses?: string;
+  /** For past leagues without exact dates, e.g. "2025". */
+  season?: string;
   summary: string;
   body?: string[];
   facts?: { label: string; value: string }[];

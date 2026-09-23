@@ -1,5 +1,9 @@
 import type { League, Photo } from "@/types/content";
 
+// Add startsOn/endsOn (and registrationCloses) to a league and the site works
+// out whether it's open for registration, upcoming, live or completed.
+// TODO: dates for the older leagues below weren't on the old site.
+
 // Photos are cropped from screenshots of the current site. Replace with the
 // original high-resolution files when available.
 const photos = (prefix: string, count: number, alt: string): Photo[] =>
@@ -15,8 +19,9 @@ export const leagues: League[] = [
     shortName: "U-10 Inter-School Football League",
     sport: "Football",
     location: "Jalpaiguri, West Bengal",
-    when: "19–20 September 2026",
+    startsOn: "2026-09-19",
     endsOn: "2026-09-20",
+    registrationCloses: "2026-09-12",
     summary:
       "A 7-a-side, league-cum-knockout tournament for under-10 school teams, with at least three matches guaranteed for every side.",
     facts: [
@@ -36,6 +41,7 @@ export const leagues: League[] = [
     shortName: "Burgeoning Football League",
     sport: "Football",
     location: "LNIPE, Gwalior",
+    season: "2025",
     summary:
       "An U-13 football league at the world-class LNIPE campus in Gwalior: the opening event of the Burgeoning Games series.",
     body: [
@@ -97,9 +103,4 @@ export const leagues: League[] = [
 
 export function getLeague(slug: string) {
   return leagues.find((league) => league.slug === slug);
-}
-
-/** True while the league hasn't finished yet (evaluated at build/request time). */
-export function isUpcoming(league: League) {
-  return league.endsOn ? new Date(`${league.endsOn}T23:59:59`) >= new Date() : false;
 }

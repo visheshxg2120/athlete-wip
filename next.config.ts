@@ -8,7 +8,11 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath,
   trailingSlash: true,
-  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+    // Lets league statuses render consistently before the browser takes over.
+    NEXT_PUBLIC_BUILD_TIME: String(Date.now()),
+  },
   images: {
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",

@@ -2,12 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CtaBand } from "@/components/layout/cta-band";
-import { ButtonLink } from "@/components/ui/button-link";
+import { LeagueStatusPanel } from "@/components/leagues/league-status-panel";
 import { ArrowRight, Calendar, Pin } from "@/components/ui/icons";
 import { LeagueCard } from "@/components/ui/league-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { PhotoGrid } from "@/components/ui/photo-grid";
-import { getLeague, isUpcoming, leagues } from "@/content/leagues";
+import { getLeague, leagues } from "@/content/leagues";
+import { leagueDates } from "@/lib/league-status";
 
 export function generateStaticParams() {
   return leagues.map((league) => ({ slug: league.slug }));
@@ -24,6 +25,7 @@ export default async function LeaguePage(props: PageProps<"/leagues/[slug]">) {
   const league = getLeague(slug);
   if (!league) notFound();
 
+  const dates = leagueDates(league);
   const others = leagues.filter((l) => l.slug !== league.slug).slice(0, 3);
 
   return (
@@ -39,19 +41,14 @@ export default async function LeaguePage(props: PageProps<"/leagues/[slug]">) {
             <Pin className="size-4 text-volt" />
             {league.location}
           </span>
-          {league.when ? (
+          {dates ? (
             <span className="inline-flex items-center gap-2">
               <Calendar className="size-4 text-volt" />
-              {league.when}
+              {dates}
             </span>
           ) : null}
         </div>
-        {isUpcoming(league) ? (
-          <ButtonLink href="/contact" className="mt-10">
-            Register your school
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </ButtonLink>
-        ) : null}
+        <LeagueStatusPanel league={league} />
       </PageHero>
 
       <section className="py-20 md:py-28">
@@ -77,7 +74,7 @@ export default async function LeaguePage(props: PageProps<"/leagues/[slug]">) {
         </div>
 
         {league.photos.length ? (
-          <div className="shell mt-20">
+          <div id="photos" className="shell mt-20 scroll-mt-10">
             <p className="eyebrow text-muted">Photos · {league.photos.length}</p>
             <PhotoGrid photos={league.photos} className="mt-6" />
           </div>
