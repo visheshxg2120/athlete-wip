@@ -24,10 +24,11 @@ export function Hero() {
       <div className="shell relative grid flex-1 items-center gap-12 pb-14 pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-8 lg:pt-24">
         <div className="lg:col-span-7">
           <p className="eyebrow text-volt">India · Southeast Asia · Since {siteConfig.founded}</p>
-          <h1 className="display mt-5 text-[length:clamp(3.25rem,14vw,5.5rem)] lg:whitespace-nowrap lg:text-[length:min(6.9vw,11.5svh,5.75rem)]">
+          <h1 className="display mt-5 text-[length:clamp(3.25rem,14vw,5.5rem)] lg:text-[length:min(8.4vw,12.5svh,7.5rem)]">
             Play local.
             <br />
-            Compete <span className="text-volt">global.</span>
+            Compete <br className="hidden lg:inline" />
+            <span className="text-volt">global.</span>
           </h1>
           <p className="mt-6 max-w-lg text-lg text-muted-inverse">{siteConfig.description}</p>
           <div className="mt-8 flex flex-wrap gap-3">
