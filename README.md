@@ -14,6 +14,13 @@ npm run build    # production build
 npm run lint
 ```
 
+## Deployment
+
+The site is a static export (`output: "export"`), deployed to GitHub Pages by
+`.github/workflows/pages.yml` on every push to `claude/loving-dijkstra-vukizu`.
+The workflow sets `PAGES_BASE_PATH` so links and images work under
+`/athlete-wip/`; locally the base path is empty.
+
 ## Structure
 
 ```
